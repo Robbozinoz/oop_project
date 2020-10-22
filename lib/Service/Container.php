@@ -44,8 +44,8 @@ class Container
         return $this->shipLoader;
     }
 
-        /**
-     * @return ShipLoader
+    /**
+     * @return BattleManager
      */
     public function getBattleManager()
     {   
