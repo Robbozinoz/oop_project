@@ -2,6 +2,8 @@
 
 class Ship
 {
+    private $id;
+
     private $name;
 
     private $weaponPower = 0;
@@ -112,5 +114,23 @@ class Ship
     public function setJediFactor($jediFactor)
     {
         $this->jediFactor = $jediFactor;
+    }
+
+    /**
+     * Get the value of id
+     * @return int
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     * @param int $id
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
