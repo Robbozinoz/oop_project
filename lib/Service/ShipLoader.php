@@ -4,25 +4,20 @@ class ShipLoader
 {
     private $pdo;
 
-    private $dbDsn;
-
-    private $dbUser;
-
-    private $dbPass;
-
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    /** 
+    /**
      * @return Ship[]
      */
     public function getShips()
     {
+        $ships = array();
+
         $shipsData = $this->queryForShips();
 
-        $ships = array();
         foreach ($shipsData as $shipData) {
             $ships[] = $this->createShipFromData($shipData);
         }
@@ -32,12 +27,11 @@ class ShipLoader
 
     /**
      * @param $id
-     * @return null|Ship
+     * @return Ship
      */
     public function findOneById($id)
     {
-        $pdo = $this->getPDO();
-        $statement = $pdo->prepare('SELECT * FROM ship WHERE id = :id');
+        $statement = $this->getPDO()->prepare('SELECT * FROM ship WHERE id = :id');
         $statement->execute(array('id' => $id));
         $shipArray = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -59,21 +53,21 @@ class ShipLoader
         return $ship;
     }
 
-    private function queryForShips()    
-    {
-        $pdo = $this->getPDO();
-        $statement = $pdo->prepare('SELECT * FROM ship');
-        $statement->execute();
-        $shipsArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $shipsArray;
-    }
-
     /**
-     * return PDO
+     * @return PDO
      */
     private function getPDO()
     {
         return $this->pdo;
     }
+
+    private function queryForShips()
+    {
+        $statement = $this->getPDO()->prepare('SELECT * FROM ship');
+        $statement->execute();
+        $shipsArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $shipsArray;
+    }
 }
+

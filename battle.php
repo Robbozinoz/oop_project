@@ -2,6 +2,7 @@
 require __DIR__.'/bootstrap.php';
 
 $container = new Container($configuration);
+
 $shipLoader = $container->getShipLoader();
 $ships = $shipLoader->getShips();
 
@@ -23,12 +24,13 @@ if (!$ship1 || !$ship2) {
     die;
 }
 
+$battleManager = $container->getBattleManager();
+
 if ($ship1Quantity <= 0 || $ship2Quantity <= 0) {
     header('Location: /index.php?error=bad_quantities');
     die;
 }
 
-$battleManager = $container->getBattleManager();
 $battleResult = $battleManager->battle($ship1, $ship1Quantity, $ship2, $ship2Quantity);
 ?>
 
@@ -87,13 +89,12 @@ $battleResult = $battleManager->battle($ship1, $ship1Quantity, $ship2, $ship2Qua
                         <?php endif; ?>
                     <?php endif; ?>
                 </p>
-
-                <h3>Ship Health</h3>
+                <h3>Remaining Strength</h3>
                 <dl class="dl-horizontal">
-                    <dt><?php echo $ship1->getName();?></dt>
-                    <dd><?php echo $ship1->getStrength();?></dd>
-                    <dt><?php echo $ship2->getName();?></dt>
-                    <dd><?php echo $ship2->getStrength();?></dd>
+                    <dt><?php echo $ship1->getName(); ?></dt>
+                    <dd><?php echo $ship1->getStrength(); ?></dd>
+                    <dt><?php echo $ship2->getName(); ?></dt>
+                    <dd><?php echo $ship2->getStrength(); ?></dd>
                 </dl>
             </div>
             <a href="/index.php"><p class="text-center"><i class="fa fa-undo"></i> Battle again</p></a>
