@@ -2,10 +2,11 @@
 require __DIR__.'/bootstrap.php';
 
 $container = new Container($configuration);
+
 $shipLoader = $container->getShipLoader();
 $ships = $shipLoader->getShips();
 
-$brokenShip = new BrokenShip('I am broken');
+$brokenShip = new BrokenShip('Just a hunk of metal');
 $ships[] = $brokenShip;
 
 $errorMessage = '';
@@ -65,8 +66,8 @@ if (isset($_GET['error'])) {
                         <th>Weapon Power</th>
                         <th>Jedi Factor</th>
                         <th>Strength</th>
-                        <th>Status</th>
                         <th>Type</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,6 +77,7 @@ if (isset($_GET['error'])) {
                             <td><?php echo $ship->getWeaponPower(); ?></td>
                             <td><?php echo $ship->getJediFactor(); ?></td>
                             <td><?php echo $ship->getStrength(); ?></td>
+                            <td><?php echo $ship->getType(); ?></td>
                             <td>
                                 <?php if ($ship->isFunctional()): ?>
                                     <i class="fa fa-sun-o"></i>
@@ -83,7 +85,6 @@ if (isset($_GET['error'])) {
                                     <i class="fa fa-cloud"></i>
                                 <?php endif; ?>
                             </td>
-                            <td><?php echo $ship->getType(); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

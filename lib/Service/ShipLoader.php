@@ -16,7 +16,7 @@ class ShipLoader
     {
         $ships = array();
 
-        $shipsData = $this->shipStorage->fetchAllShipsData();
+        $shipsData = $this->queryForShips();
 
         foreach ($shipsData as $shipData) {
             $ships[] = $this->createShipFromData($shipData);
@@ -27,11 +27,11 @@ class ShipLoader
 
     /**
      * @param $id
-     * @return null|AbstractShip
+     * @return AbstractShip
      */
     public function findOneById($id)
     {
-        $shipArray =  $this->shipStorage->fetchSingleShipData($id);
+        $shipArray = $this->shipStorage->fetchSingleShipData($id);
 
         return $this->createShipFromData($shipArray);
     }
@@ -50,6 +50,11 @@ class ShipLoader
         $ship->setStrength($shipData['strength']);
 
         return $ship;
+    }
+
+    private function queryForShips()
+    {
+        return $this->shipStorage->fetchAllShipsData();
     }
 }
 

@@ -8,9 +8,9 @@ class Container
 
     private $shipLoader;
 
-    private $shipStorage;
-
     private $battleManager;
+
+    private $shipStorage;
 
     public function __construct(array $configuration)
     {
@@ -47,9 +47,6 @@ class Container
         return $this->shipLoader;
     }
 
-    /**
-     * @return ShipStorageInterface
-     */
     public function getShipStorage()
     {
         if ($this->shipStorage === null) {
