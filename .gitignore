@@ -1,5 +1,3 @@
-/projects_store*
-/projects_store
-
-/oop_project*
-/oop_project
+/vendor*
+/resources*
+/.vscode*
