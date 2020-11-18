@@ -4,6 +4,8 @@ class JsonFileShipStorage extends AbstractShipStorage
 {
     private $filename;
 
+    private $dump;
+
     public function __construct($jsonFilePath)
     {
         $this->filename = $jsonFilePath;
