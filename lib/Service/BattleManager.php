@@ -1,5 +1,10 @@
 <?php
 
+namespace Service;
+
+use Model\BattleResult;
+use Model\AbstractShip;
+
 class BattleManager
 {
     // normal battle mode
@@ -26,20 +31,20 @@ class BattleManager
 
             $i=0;
             // first, see if we have a rare Jedi hero event!
-            if ($battleType != BattleManager::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship1)) {
+            if ($battleType != self::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship1)) {
                 $ship2Health = 0;
                 $ship1UsedJediPowers = true;
 
                 break;
             }
-            if ($battleType != BattleManager::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship2)) {
+            if ($battleType != self::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship2)) {
                 $ship1Health = 0;
                 $ship2UsedJediPowers = true;
 
                 break;
             }
 
-            if ($battleType != BattleManager::TYPE_ONLY_JEDI) {
+            if ($battleType != self::TYPE_ONLY_JEDI) {
                 // now battle them normally
                 $ship1Health = $ship1Health - ($ship2->getWeaponPower() * $ship2Quantity);
                 $ship2Health = $ship2Health - ($ship1->getWeaponPower() * $ship1Quantity);
@@ -72,6 +77,15 @@ class BattleManager
         }
 
         return new BattleResult($usedJediPowers, $winningShip, $losingShip);
+    }
+
+    public static function getAllBattleTypesWithDescription()
+    {
+        return array(
+            self::TYPE_NORMAL => 'Normal',
+            self::TYPE_NO_JEDI => 'No Jedi Powers',
+            self::TYPE_ONLY_JEDI => 'Only Jedi Powers'
+        );
     }
 
     private function didJediDestroyShipUsingTheForce(AbstractShip $ship)
