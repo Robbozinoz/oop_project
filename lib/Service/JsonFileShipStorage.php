@@ -1,10 +1,8 @@
 <?php
 
-class JsonFileShipStorage extends AbstractShipStorage
+class JsonFileShipStorage implements ShipStorageInterface
 {
     private $filename;
-
-    private $dump;
 
     public function __construct($jsonFilePath)
     {
