@@ -2,9 +2,9 @@
 
 namespace Model;
 
-use ArrayAccess;
+//use ArrayAccess;
 
-class ShipCollection implements \ArrayAccess
+class ShipCollection implements \ArrayAccess, \IteratorAggregate
 {
     /**
      * @var AbstractShip[]
@@ -16,24 +16,37 @@ class ShipCollection implements \ArrayAccess
         $this->ships = $ships;
     }
 
-    
     public function offsetExists($offset)
     {
-        return property_exists($this, $offset);
+        return array_key_exists($offset, $this->ships);
     }
 
     public function offsetGet($offset)
     {
-        return $this->$offset;
+        return $this->ships[$offset];
     }
 
     public function offsetSet($offset, $value)
     {
-        $this->$offset = $value;
+        $this->ships[$offset] = $value;
     }
 
     public function offsetUnset($offset)
     {
-        unset($this->$offset);
+        unset($this->ships[$offset]);
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->ships);
+    }
+
+    public function removeAllBrokenShips()
+    {
+        foreach ($this->ships as $key => $ship) {
+            if (!$ship->isFunctional()) {
+                unset($this->ships[$key]);
+            }
+        }
     }
 }
