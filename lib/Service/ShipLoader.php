@@ -5,6 +5,7 @@ namespace Service;
 use Model\RebelShip;
 use Model\Ship;
 use Model\AbstractShip;
+use Model\BountyHunterShip;
 use Model\ShipCollection;
 
 class ShipLoader
@@ -33,6 +34,9 @@ class ShipLoader
         foreach ($shipsData as $shipData) {
             $ships[] = $this->createShipFromData($shipData);
         }
+
+        //Boba Fetts ship
+        $ships[] = new BountyHunterShip('Slave I');
 
         return new ShipCollection($ships);
     }
